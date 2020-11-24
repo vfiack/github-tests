@@ -1,0 +1,1 @@
+"%JAVA_HOME%\bin\keytool" -genkey -keyalg RSA -validity 3650 -keystore "keystore.jks" -storepass "password" -alias "default" -dname "CN=127.0.0.1, OU=MyOrgUnit, O=MyOrg, L=MyCity, S=MyRegion, C=MyCountry"
