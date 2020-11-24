@@ -38,5 +38,5 @@ jobs:
     - name: Upload artifact archive
       uses: actions/upload-artifact@v2
       with:
-        name: artifacts
+        name: jars
         path: target/archive
