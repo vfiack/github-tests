@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
     @Test
-    public void failure() {
-        fail("Testing junit failures");
+    public void sucess() {
+        assertTrue(true);
     }
 }
