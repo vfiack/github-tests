@@ -6,8 +6,10 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
+        <sonar.projectKey>vfiack_github-tests</sonar.projectKey>
+        <sonar.organization>vfiack-test</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.java-websocket</groupId>
