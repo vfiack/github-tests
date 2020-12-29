@@ -56,10 +56,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -f ./pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-# problem with running sonar for each module: PR have several quality gate comments, and the check pass if the last one pass
-#          mvn -f ./base/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-#          mvn -f ./secondary/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvn -f ./base/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvn -f ./secondary/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #      - name: Prepare artifact archive
 #        run: mkdir target/archive && cp target/*.jar target/archive
