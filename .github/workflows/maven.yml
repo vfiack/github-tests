@@ -56,8 +56,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-            mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-
+            mvn ./base/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+            mvn ./secondary/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+#            mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #      - name: Prepare artifact archive
 #        run: mkdir target/archive && cp target/*.jar target/archive

@@ -4,7 +4,7 @@ import java.lang.annotation.Target;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CheckSonarOptionalSupportTest {
+public class CheckSonarOptionalSupportTest {
     @Test
     public void testMe() {
         int i = CheckSonarOptionalSupport.checkMe();
