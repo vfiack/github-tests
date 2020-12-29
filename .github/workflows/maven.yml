@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-            mvn -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -pl !multimodule
+            mvn -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 #          mvn -f ./base/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 #          mvn -f ./secondary/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
