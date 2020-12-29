@@ -5,10 +5,9 @@ import java.util.Optional;
 
 public class CheckDuplicateAcrossProjects {
     public static int checkMe() {
-        Optional<Integer> optional = List.of(1, 2, 3).stream().filter(i -> i > 2)
-                .findFirst();
+        Optional<Integer> optional = List.of(1, 2, 3).stream().filter(i -> i > 2).findFirst();
 
-        if(optional.isEmpty()) {
+        if (optional.isEmpty()) {
             return 0;
         }
 
@@ -16,9 +15,8 @@ public class CheckDuplicateAcrossProjects {
         return 2 * optional.get();
     }
 
-    //this should pass the quality gate
-    public static int cleaner(int i)  {
-        return i*i;
+    // this should pass the quality gate
+    public static int cleaner(int i) {
+        return i * i;
     }
-
 }
