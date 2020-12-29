@@ -20,6 +20,6 @@ jobs:
       - name: Format code
         uses: axel-op/googlejavaformat-action@v3
         with:
-          args: "--aosp --length=120 --replace"
+          args: "--aosp --replace"
           commitMessage: Formatting (auto)
           githubToken: ${{ secrets.GITHUB_TOKEN }}
