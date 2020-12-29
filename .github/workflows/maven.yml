@@ -37,12 +37,17 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Clean compile
-        run: mvn -f pom.xml clean compile
+        run: mvn -B clean compile
 
-      # Ignore failures so that all tests are run
-      # The publish step will take care of failing the build if needed
-      - name: Execute tests
-        run: mvn -f pom.xml test -Dmaven.test.failure.ignore=true
+      # Do both in a single step, because sonar needs to run the tests to get coverage information
+      # Ignore test failures so that all tests are run
+      # The publish report step will take care of failing the build if needed
+      - name: Execute tests & Analyze with sonar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+            mvn -B -Dmaven.test.failure.ignore=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
       - name: Publish test report
         uses: scacap/action-surefire-report@v1
@@ -50,13 +55,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           fail_on_test_failures: true
           fail_if_no_tests: true
-
-      - name: Analyze with sonar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-            mvn -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #      - name: Prepare artifact archive
 #        run: mkdir target/archive && cp target/*.jar target/archive
