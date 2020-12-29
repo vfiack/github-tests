@@ -43,7 +43,7 @@ jobs:
       # The publish report step will take care of failing the build if needed
       # Use jacoco to prepare test coverage report for sonar
       - name: Execute tests
-        run: mvn org.jacoco:jacoco-maven-plugin:prepare-agent test org.jacoco:jacoco-maven-plugin:report -Dmaven.test.failure.ignore=true
+        run: mvn org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true
 
       - name: Publish test report
         uses: scacap/action-surefire-report@v1
@@ -53,7 +53,7 @@ jobs:
           fail_if_no_tests: true
 
       - name: Generate test coverage report
-        run: mvn org.jacoco:jacoco-maven-plugin:report -Dmaven.test.failure.ignore=true
+        run: mvn org.jacoco:jacoco-maven-plugin:report
 
       - name: Analyze with sonar
         env:
