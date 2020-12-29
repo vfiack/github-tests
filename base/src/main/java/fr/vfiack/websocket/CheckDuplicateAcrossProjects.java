@@ -16,10 +16,9 @@ public class CheckDuplicateAcrossProjects {
         return 2 * optional.get();
     }
 
-    //this should not pass the quality gate
-    public static void badCode() throws Exception {
-        Object x = null;
-        System.out.println(x.getClass());
+    //this should pass the quality gate
+    public static int cleaner(int i)  {
+        return i*i;
     }
 
 }
