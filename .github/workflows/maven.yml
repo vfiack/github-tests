@@ -37,12 +37,13 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Clean compile
-        run: mvn -f pom.xml clean compile
+        run: mvn clean compile
 
       # Ignore test failures so that all tests are run
       # The publish report step will take care of failing the build if needed
+      # Use jacoco to prepare test coverage report for sonar
       - name: Execute tests
-        run: mvn -f pom.xml test -Dmaven.test.failure.ignore=true
+        run: mvn org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true
 
       - name: Publish test report
         uses: scacap/action-surefire-report@v1
@@ -51,13 +52,16 @@ jobs:
           fail_on_test_failures: true
           fail_if_no_tests: true
 
+      - name: Generate test coverage report
+        run: mvn org.jacoco:jacoco-maven-plugin:report
+
       - name: Analyze with sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-            mvn -f ./base/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            mvn -f ./secondary/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+            mvn -f ./base/pom.xml -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+            mvn -f ./secondary/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 #            mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #      - name: Prepare artifact archive
