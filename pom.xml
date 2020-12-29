@@ -8,8 +8,10 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <sonar.projectKey>vfiack_github-tests</sonar.projectKey>
+        <sonar.projectKey>vfiack_github-tests:${project.artifactId}</sonar.projectKey>
+        <!--
         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+        -->
         <sonar.organization>vfiack-test</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
