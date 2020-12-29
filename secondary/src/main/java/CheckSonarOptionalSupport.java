@@ -7,7 +7,7 @@ public class CheckSonarOptionalSupport {
                 .findFirst();
 
         if(optional.isEmpty()) {
-            return 0;
+            return 4;
         }
 
         // will sonar complain about accessing optional without is present call?
