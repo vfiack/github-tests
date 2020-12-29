@@ -36,10 +36,15 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml -Dmaven.test.failure.ignore=true
+      - name: Clean compile
+        run: mvn -f pom.xml clean compile
 
-      - name: Publish Test Report
+      # Ignore failures so that all tests are run
+      # The publish step will take care of failing the build if needed
+      - name: Execute tests
+        run: mvn -f pom.xml test -Dmaven.test.failure.ignore=true
+
+      - name: Publish test report
         uses: scacap/action-surefire-report@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -51,8 +56,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -f ./base/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-          mvn -f ./secondary/pom.xml -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvn -f ./base/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvn -f ./secondary/pom.xml -B -Dmaven.test.skip=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #      - name: Prepare artifact archive
 #        run: mkdir target/archive && cp target/*.jar target/archive
