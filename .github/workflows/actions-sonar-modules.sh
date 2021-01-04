@@ -9,6 +9,7 @@ for FILE in $*; do
 done | sort | uniq | while read MODULE; do
 	POM=$MODULE/pom.xml
 	if [ -f $POM ]; then
+		echo analyzing $MODULE
 		mvn -f $POM -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 	fi
 done
