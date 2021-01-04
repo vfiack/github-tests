@@ -17,6 +17,7 @@ public class CheckDuplicateAcrossProjects {
     }
 
     //this should pass the quality gate
+    //single module update
     public static int cleaner(int i)  {
         return i*i;
     }
