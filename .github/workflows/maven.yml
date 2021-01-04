@@ -62,7 +62,9 @@ jobs:
           output: ' '
       - name: Echo file changes
         run: |
-          echo Changed files: ${{ steps.get_file_changes.outputs.files }}
+          for FILE in ${{ steps.get_file_changes.outputs.files }}; do echo $FILE | cut -d '/' -f 1; done | sort | uniq > changed-modules.txt
+          echo Changed modules:
+          cat changed-modules.txt
 
       - name: Analyze with sonar
         env:
