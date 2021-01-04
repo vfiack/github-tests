@@ -60,13 +60,14 @@ jobs:
         uses: trilom/file-changes-action@v1.2.3
         with:
           output: ' '
+          fileOutput: ' '
 
       # TODO improvement: analyze everything for push, changes only for PR
       - name: Analyze changed modules with sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: bash .github/workflows/actions-sonar-modules.sh ${{ steps.get_file_changes.outputs.files }}
+        run: bash .github/workflows/actions-sonar-modules.sh
 
 #      - name: Prepare artifact archive
 #        run: mkdir target/archive && cp target/*.jar target/archive
