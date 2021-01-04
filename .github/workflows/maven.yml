@@ -60,20 +60,13 @@ jobs:
         uses: trilom/file-changes-action@v1.2.3
         with:
           output: ' '
-      - name: Echo file changes
-        run: |
-          for FILE in ${{ steps.get_file_changes.outputs.files }}; do echo $FILE | cut -d '/' -f 1; done | sort | uniq > changed-modules.txt
-          echo Changed modules:
-          cat changed-modules.txt
 
-      - name: Analyze with sonar
+      # TODO improvement: analyze everything for push, changes only for PR
+      - name: Analyze changed modules with sonar
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-            mvn -f ./base/pom.xml -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            mvn -f ./secondary/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-#            mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: bash .github/workflows/actions-sonar-modules.sh
 
 #      - name: Prepare artifact archive
 #        run: mkdir target/archive && cp target/*.jar target/archive
