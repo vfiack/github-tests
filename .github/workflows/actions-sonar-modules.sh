@@ -17,7 +17,7 @@ fi
 cat $INPUT | tr " " "\n" | cut -d '/' -f 1 | sort | uniq | while read MODULE; do
 	POM=$MODULE/pom.xml
 	if [ -f $POM ]; then
-		echo "*** ANALYZING " $MODULE " ***"
+		echo "*** ANALYZING" $MODULE "***"
 		mvn -f $POM -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 	fi
 done
