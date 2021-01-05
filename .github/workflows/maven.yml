@@ -55,14 +55,20 @@ jobs:
       - name: Generate test coverage report
         run: mvn org.jacoco:jacoco-maven-plugin:report
 
+      # Get file changes for pull requests, so that sonar runs only on modified modules
+      # For push triggers, sonar should run on all modules
+      - name: Get file changes
+        if: contains(github.event_name, 'pull_request')
+        uses: trilom/file-changes-action@v1.2.4
+        with:
+          output: ' '
+          fileOutput: ' '
+
       - name: Analyze with sonar
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-            mvn -f ./base/pom.xml -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            mvn -f ./secondary/pom.xml org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-#            mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: bash .github/workflows/actions-sonar-modules.sh
 
 #      - name: Prepare artifact archive
 #        run: mkdir target/archive && cp target/*.jar target/archive
