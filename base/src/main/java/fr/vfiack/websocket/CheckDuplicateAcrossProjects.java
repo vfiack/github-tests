@@ -15,7 +15,7 @@ public class CheckDuplicateAcrossProjects {
         return 2 * optional.get();
     }
 
-    public static int cleaner(int i)  {
-        return i*i;
+    public static int cleaner(int i) {
+        return i * i;
     }
 }

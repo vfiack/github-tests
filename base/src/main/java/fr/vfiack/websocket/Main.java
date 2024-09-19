@@ -21,7 +21,9 @@ public class Main {
     public static final int PORT = 8887;
 
     private static SSLContext createTlsSslContext(KeyStore keyStore, String keyPassword)
-            throws NoSuchAlgorithmException, KeyStoreException, UnrecoverableKeyException,
+            throws NoSuchAlgorithmException,
+                    KeyStoreException,
+                    UnrecoverableKeyException,
                     KeyManagementException {
         KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(ALGORITHM);
         keyManagerFactory.init(keyStore, keyPassword.toCharArray());
