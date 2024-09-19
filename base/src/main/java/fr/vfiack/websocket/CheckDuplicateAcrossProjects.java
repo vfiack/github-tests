@@ -15,8 +15,7 @@ public class CheckDuplicateAcrossProjects {
         return 2 * optional.get();
     }
 
-    // this should pass the quality gate
-    public static int cleaner(int i) {
-        return i * i;
+    public static int cleaner(int i)  {
+        return i*i;
     }
 }
